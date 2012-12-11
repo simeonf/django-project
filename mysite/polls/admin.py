@@ -14,7 +14,7 @@ class PollAdmin(admin.ModelAdmin):
         ]
     inlines = [ChoiceInline]
     list_display = ('question', 'pub_date', 'was_published_recently')
-    lists_filter = ['pub_date']
+    list_filter = ['pub_date']
     search_fields = ['question']
     date_hierarchy = 'pub_date'
 
