@@ -130,6 +130,7 @@ INSTALLED_APPS = (
     'polls',
     'debug_toolbar',
     'django_extensions',
+    'south',
 )
 
 INTERNAL_IPS = ('127.0.0.1',)
