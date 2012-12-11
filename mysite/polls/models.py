@@ -4,7 +4,6 @@ from django.db import models
 from django.contrib.auth.models import User
 
 class Poll(models.Model):
-    user = models.ForeignKey(User)
     question = models.CharField(max_length=200)
     pub_date = models.DateTimeField('date published')
     list_filter = ['pub_date']
