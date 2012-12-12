@@ -1,11 +1,26 @@
 from django.shortcuts import render_to_response, get_object_or_404, render
+from django.contrib.auth.models import User
+from django.contrib.auth import login, authenticate
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
 from django.template import RequestContext
 from django.http import HttpResponseRedirect
 
+from polls.forms import RegistrationForm
+
 from polls.models import Poll, Choice
 
+def register(request):
+    form = RegistrationForm(request.POST or None)
+    if form.is_valid():
+        if form.save():
+            u = authenticate(username=form.cleaned_data['username'],
+                             password=form.cleaned_data['password1'])
+            login(request, u)
+            return HttpResponseRedirect("/polls/")
+    return render(request, "registration/register.html", {'form': form})
+
+    
 def index(request):
     latest_poll_list = Poll.objects.all().order_by('-pub_date')[:5]
     return render(request, 'polls/index.html',
