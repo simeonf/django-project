@@ -1,4 +1,5 @@
 from django.shortcuts import render_to_response, get_object_or_404, render
+from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
 from django.template import RequestContext
 from django.http import HttpResponseRedirect
@@ -19,6 +20,7 @@ def results(request, poll_id):
     poll = get_object_or_404(Poll, pk=poll_id)
     return render(request, 'polls/results.html', {'poll':poll})
 
+@login_required
 def vote(request, poll_id):
     poll = get_object_or_404(Poll, pk=poll_id)
     try:
