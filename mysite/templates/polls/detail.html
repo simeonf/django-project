@@ -3,7 +3,7 @@
   <h1>{{ poll.question }}</h1>
 
   {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
-
+  {% if user.is_authenticated %}
   <form action="/polls/{{ poll.id }}/vote/" method="post">
   {% csrf_token %}
   {% for choice in poll.choice_set.all %}
@@ -12,4 +12,7 @@
   {% endfor %}
   <input type="submit" value="Vote" />
   </form>
+  {% else %}
+  <p>You must <a href="/login/?next=/polls/{{poll.id}}/">login</a> to vote on a poll. See results <a href="./results/">here</a>.
+  {% endif %}
 {% endblock %}

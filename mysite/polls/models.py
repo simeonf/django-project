@@ -1,9 +1,16 @@
+"""
+Polls are owned by users and have choices. Voting is indicated by
+the choice.num_votes field.
+"""
 import datetime
 
 from django.db import models
 from django.contrib.auth.models import User
 
 class Poll(models.Model):
+    """
+    A Poll, owned by a user, with associated choices.
+    """
     user = models.ForeignKey(User)
     question = models.CharField(max_length=200)
     pub_date = models.DateTimeField('date published')
@@ -11,9 +18,9 @@ class Poll(models.Model):
     search_fields = ['question']
     date_hierarchy = 'pub_date'
     
-    def __unicode__(self):
-        return self.question
-
+    def get_absolute_url(self):
+        return "/polls/%s/" % self.id
+    
     def was_published_recently(self):
         return self.pub_date.date() == datetime.date.today()
     
