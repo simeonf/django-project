@@ -1,6 +1,11 @@
 # Django settings for mysite project.
 from os.path import abspath, dirname, join
 
+# turn off ipython warning - http://stackoverflow.com/questions/11708821/django-ipython-sqlite-complains-about-naive-datetime
+import warnings
+import exceptions
+warnings.filterwarnings("ignore", category=exceptions.RuntimeWarning, module='django.db.backends.sqlite3', lineno=50)
+
 DIR = dirname(abspath(dirname(__file__)))
 
 DEBUG = True
@@ -126,6 +131,7 @@ INSTALLED_APPS = (
     'debug_toolbar',
     'django_extensions',
     'south',
+    'integration_tests',
 )
 
 INTERNAL_IPS = ('127.0.0.1',)
