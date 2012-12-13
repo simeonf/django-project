@@ -1,0 +1,28 @@
+{% extends 'polls/base.html' %}
+{% load poll_extras %}
+{% block poll %}
+  {% if latest_poll_list %}
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Poll</th>
+            <th>User</th>
+            <th>Date</th>
+            <th>Votes</th>            
+          </tr>
+        </thead>
+        <tbody>
+      {% for poll in latest_poll_list %}
+          <tr>
+            <td><a href="{{ poll.get_absolute_url }}">{{ poll.question }}</a></td>
+            <td>{{ poll.user }}</td>
+            <td>{{ poll.pub_date|timesince }}</td>
+            <td>{{ poll|total_votes }}</td>
+          </tr>
+      {% endfor %}
+        <tbody>
+      </table>
+  {% else %}
+      <p>No polls are available.</p>
+  {% endif %}
+{% endblock %}
