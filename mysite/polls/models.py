@@ -17,9 +17,10 @@ class Poll(models.Model):
     list_filter = ['pub_date']
     search_fields = ['question']
     date_hierarchy = 'pub_date'
-    
+
+    @models.permalink
     def get_absolute_url(self):
-        return "/polls/%s/" % self.id
+        return ('poll_detail', [self.id])
     
     def was_published_recently(self):
         return self.pub_date.date() == datetime.date.today()

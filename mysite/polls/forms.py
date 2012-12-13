@@ -2,6 +2,17 @@ from django.contrib.auth.models import User, Group
 from django import forms
 from django.db import IntegrityError
 
+from polls.models import Choice
+
+class VoteForm(forms.Form):
+    choice = forms.ModelChoiceField(queryset=Choice.objects.none(),
+                                    widget=forms.RadioSelect,
+                                    empty_label=None)
+    def save(self):
+        c = self.cleaned_data['choice']
+        c.votes += 1
+        c.save()
+    
 class RegistrationForm(forms.Form):
     username = forms.CharField(max_length=30, min_length=3,
                                help_text="Usernames must be between 3-30 alpha-numeric characters.")

@@ -8,5 +8,5 @@
   {% endfor %}
   </ul>
 
-  <a href="/polls/{{ poll.id }}/">Vote again?</a>
+  <a href="{{ poll.get_absolute_url }}">Vote again?</a>
 {% endblock %}
