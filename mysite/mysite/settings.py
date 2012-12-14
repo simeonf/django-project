@@ -132,6 +132,8 @@ INSTALLED_APPS = (
     'django_extensions',
     'south',
     'integration_tests',
+    'floppyforms',
+    'crispy_forms',
 )
 
 INTERNAL_IPS = ('127.0.0.1',)
@@ -139,6 +141,8 @@ INTERNAL_IPS = ('127.0.0.1',)
 DEBUG_TOOLBAR_CONFIG = {'INTERCEPT_REDIRECTS': False}
 
 LOGIN_REDIRECT_URL = "/polls/"
+
+AUTH_PROFILE_MODULE = 'polls.SocialUser'
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to

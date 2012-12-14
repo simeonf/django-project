@@ -1,13 +1,36 @@
 from django.contrib.auth.models import User, Group
-from django import forms
+import floppyforms as forms
+
+from crispy_forms.helper import FormHelper
+from crispy_forms.layout import Submit
+
 from django.db import IntegrityError
 
-from polls.models import Choice
+from polls.models import Choice, SocialUser
 
+class ProfileForm(forms.ModelForm):
+    class Meta:
+        model = SocialUser
+        exclude = ['user']
+
+    def __init__(self, *args, **kwargs):
+        self.helper = FormHelper()
+        self.helper.form_tag = False
+        self.helper.add_input(Submit("submit", "Submit"))
+        super(ProfileForm, self).__init__(*args, **kwargs)
+        
+        
 class VoteForm(forms.Form):
     choice = forms.ModelChoiceField(queryset=Choice.objects.none(),
+                                    label="",
                                     widget=forms.RadioSelect,
                                     empty_label=None)
+    def __init__(self, *args, **kwargs):
+        self.helper = FormHelper()
+        self.helper.form_class = 'form-horizontal'
+        self.helper.add_input(Submit("submit", "Submit"))
+        super(VoteForm, self).__init__(*args, **kwargs)
+
     def save(self):
         c = self.cleaned_data['choice']
         c.votes += 1
@@ -20,6 +43,11 @@ class RegistrationForm(forms.Form):
     password1 = forms.CharField(label="Password", widget=forms.PasswordInput)
     password2 = forms.CharField(label="Password Again", widget=forms.PasswordInput)
 
+    def __init__(self, *args, **kwargs):
+        self.helper = FormHelper()
+        self.helper.form_tag = False
+        super(RegistrationForm, self).__init__(*args, **kwargs)
+        
     def clean_username(self):
         username = self.cleaned_data['username']
         if not username.isalnum():

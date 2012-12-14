@@ -1,11 +1,11 @@
 {% extends 'base.html' %}
+{% load crispy_forms_tags %}
 {% block content %}
-<form action="" method="POST">
-{% csrf_token %}
-<table>
-{{ form }}
-<tr><th>&nbsp;</th><td><input type="submit" value="Signup"> </td></tr>
-</table>
+
+<form action="" method="POST" class="form-horizontal">
+
+{% crispy form %}
+{% crispy up_form %}
 
 </form>
 {% endblock %}

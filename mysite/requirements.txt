@@ -1,9 +1,12 @@
 Django==1.4
 Pygments==1.5
 South==0.7.6
+django-crispy-forms==1.2.3
 django-debug-toolbar==0.9.4
 django-extensions==1.0.1
+django-floppyforms==1.0
 docutils==0.9.1
+ipdb==0.7
 ipython==0.13.1
 readline==6.2.4.1
 wsgiref==0.1.2

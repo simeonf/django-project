@@ -1,15 +1,10 @@
 {% extends 'polls/base.html' %}
+{% load crispy_forms_tags %}
 {% block poll %}
   <h1>{{ poll.question }}</h1>
 
   {% if user.is_authenticated %}
-  <form action="" method="post">
-  {% csrf_token %}    
-  <table>
-  {{ form.choice }} {{ form.choice.errors }}
-  </table>
-  <input type="submit" value="Vote" />
-  </form>
+    {% crispy form %}
   {% else %}
   <p>You must <a href="/login/?next={{ poll.get_absolute_url }}">login</a> to vote on a poll. See results <a href="./results/">here</a>.
   {% endif %}
